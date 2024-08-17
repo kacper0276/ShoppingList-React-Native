@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, StatusBar, Button, Alert } from "react-native";
+import { View, StyleSheet, StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ShoppingList from "@/components/ShoppingList";
 import GroupList from "@/components/GroupList";
@@ -62,25 +62,34 @@ const HomeScreenContent = () => {
     }
   };
 
+  const updateGroupName = (oldName: string, newName: string) => {
+    const updatedGroups = groups.map((group) => {
+      if (group.name === oldName) {
+        return { ...group, name: newName };
+      }
+      return group;
+    });
+    saveGroups(updatedGroups);
+  };
+
   const containerStyle =
     theme === "light" ? styles.lightContainer : styles.darkContainer;
 
   return (
     <View style={containerStyle}>
       {selectedGroup ? (
-        <>
-          <ShoppingList
-            group={selectedGroup}
-            updateGroupItems={updateGroupItems}
-            goBack={() => setSelectedGroup(null)}
-          />
-        </>
+        <ShoppingList
+          group={selectedGroup}
+          updateGroupItems={updateGroupItems}
+          goBack={() => setSelectedGroup(null)}
+        />
       ) : (
         <GroupList
           groups={groups}
-          onAddGroup={addGroup}
+          updateGroupName={updateGroupName}
+          deleteGroup={deleteGroup}
           onSelectGroup={setSelectedGroup}
-          onDeleteGroup={deleteGroup}
+          onAddGroup={addGroup}
         />
       )}
     </View>

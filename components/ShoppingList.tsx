@@ -6,7 +6,6 @@ import {
   Button,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import ShoppingItem from "./ShoppingItem";
 import { ShoppingItem as ShoppingItemProps } from "@/types/shoppingItem.type";
@@ -53,6 +52,13 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
     updateGroupItems(group.name, updatedItems);
   };
 
+  const updateItem = (index: number, newName: string) => {
+    const updatedItems = [...items];
+    updatedItems[index].name = newName;
+    setItems(updatedItems);
+    updateGroupItems(group.name, updatedItems);
+  };
+
   const inputStyle = theme === "light" ? styles.inputLight : styles.inputDark;
   const buttonStyle =
     theme === "light" ? styles.buttonLight : styles.buttonDark;
@@ -60,11 +66,11 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
   return (
     <View style={styles.container}>
       <Text style={theme === "light" ? styles.title : styles.title_dark}>
-        {group.name}
+        Produkty w liście zakupów o nazwie {group.name}
       </Text>
       <FlatList
         data={items}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(_, index) => index.toString()}
         renderItem={({ item, index }) => (
           <View style={styles.itemContainer}>
             <ShoppingItem
@@ -72,6 +78,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
               index={index}
               toggleItem={toggleItem}
               deleteItem={deleteItem}
+              updateItem={updateItem}
             />
           </View>
         )}
@@ -133,23 +140,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 5,
   },
-  deleteButton: {
-    color: "red",
-    marginLeft: 10,
-  },
   buttonContainer: {
-    marginTop: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  buttonSpacer: {
-    width: 10,
+    marginTop: 20,
   },
   buttonLight: {
     backgroundColor: "#007bff",
   },
   buttonDark: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#0056b3",
+  },
+  buttonSpacer: {
+    width: 10,
   },
 });
 
