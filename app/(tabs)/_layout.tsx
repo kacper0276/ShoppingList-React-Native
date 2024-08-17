@@ -21,7 +21,7 @@ export default function TabLayout() {
             headerShown: false,
           }}
         >
-          <Tabs.Screen
+          {/* <Tabs.Screen
             name="index"
             options={{
               title: "Strona główna",
@@ -32,7 +32,7 @@ export default function TabLayout() {
                 />
               ),
             }}
-          />
+          /> */}
         </Tabs>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={toggleTheme} style={styles.toggleButton}>
@@ -49,10 +49,11 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   buttonContainer: {
     position: "absolute",
-    left: 20,
     bottom: 2,
     flexDirection: "row",
     alignItems: "center",
+    left: 0,
+    right: 0,
   },
   toggleButton: {
     backgroundColor: "#007bff",

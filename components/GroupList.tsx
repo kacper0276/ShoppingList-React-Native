@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   groupNameButton: {
-    width: "50%",
+    width: "30%",
     justifyContent: "center",
   },
   groupName: {
